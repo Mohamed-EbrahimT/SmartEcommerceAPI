@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartE_Commerce_Data\SmartE_Commerce_Data.csproj" />
+    <ProjectReference Include="..\SmartE_Commerce_Business\SmartE_Commerce_Business.csproj" />
   </ItemGroup>
 
 </Project>

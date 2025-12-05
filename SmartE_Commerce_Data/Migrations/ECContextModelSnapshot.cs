@@ -51,7 +51,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Cart", b =>
@@ -73,7 +73,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Cart", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.CartItem", b =>
@@ -100,7 +100,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItem");
+                    b.ToTable("CartItem", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Category", b =>
@@ -119,7 +119,7 @@ namespace SmartE_Commerce_Data.Migrations
                     b.HasKey("CategoryId")
                         .HasName("PK__Category__19093A0BE6A49C01");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Order", b =>
@@ -154,7 +154,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.OrderItem", b =>
@@ -176,7 +176,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItem", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.OrderStatus", b =>
@@ -191,7 +191,7 @@ namespace SmartE_Commerce_Data.Migrations
                     b.HasKey("OrderStatusId")
                         .HasName("PK__OrderSta__BC674CA1A6DC858F");
 
-                    b.ToTable("OrderStatus");
+                    b.ToTable("OrderStatus", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Payment", b =>
@@ -219,7 +219,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Product", b =>
@@ -246,7 +246,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Review", b =>
@@ -274,7 +274,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Review", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.User", b =>
@@ -324,7 +324,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.UserRole", b =>
@@ -340,7 +340,7 @@ namespace SmartE_Commerce_Data.Migrations
                     b.HasKey("UserRoleId")
                         .HasName("PK__UserRole__3D978A35800F8C94");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("SmartE_Commerce_Data.Models.Images", b =>
@@ -365,7 +365,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("FinalProj.Models.Address", b =>

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8 d17.14
+VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartE_Commerce", "SmartE_Commerce\SmartE_Commerce.csproj", "{CB8AA404-9CEB-4C96-9BB1-0345672928D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartE_Commerce_Data", "SmartE_Commerce_Data\SmartE_Commerce_Data.csproj", "{E7448685-3C99-4AF3-ADD1-2D35321D7B69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartE_Commerce_Business", "SmartE_Commerce_Business\SmartE_Commerce_Business.csproj", "{851963D4-7C30-4A1D-9A91-46F2CD48AA57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E7448685-3C99-4AF3-ADD1-2D35321D7B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7448685-3C99-4AF3-ADD1-2D35321D7B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7448685-3C99-4AF3-ADD1-2D35321D7B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851963D4-7C30-4A1D-9A91-46F2CD48AA57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851963D4-7C30-4A1D-9A91-46F2CD48AA57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851963D4-7C30-4A1D-9A91-46F2CD48AA57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851963D4-7C30-4A1D-9A91-46F2CD48AA57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
