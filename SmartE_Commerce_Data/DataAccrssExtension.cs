@@ -19,6 +19,7 @@ namespace SmartE_Commerce_Data
             var connectionString = configuration.GetConnectionString("con");
             services.AddDbContext<ECContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped(typeof(IRepository<> ), typeof(Repository<>));
+            services.AddScoped(typeof(IProductRepository ), typeof(ProductRepository));
             return services;
         }
 

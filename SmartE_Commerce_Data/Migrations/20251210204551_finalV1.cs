@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartE_Commerce_Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class finalV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
@@ -28,7 +29,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "OrderStatus",
                 columns: table => new
                 {
-                    OrderStatusId = table.Column<int>(type: "int", nullable: false),
+                    OrderStatusId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OrderStatusName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
@@ -40,7 +42,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "UserRole",
                 columns: table => new
                 {
-                    UserRoleId = table.Column<int>(type: "int", nullable: false),
+                    UserRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserRoleName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true)
                 },
                 constraints: table =>
@@ -52,7 +55,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     Stock = table.Column<int>(type: "int", nullable: true),
@@ -118,7 +122,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Address",
                 columns: table => new
                 {
-                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     StreetName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -139,7 +144,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Cart",
                 columns: table => new
                 {
-                    CartId = table.Column<int>(type: "int", nullable: false),
+                    CartId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     ItemTotal = table.Column<int>(type: "int", nullable: true)
@@ -158,7 +164,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Review",
                 columns: table => new
                 {
-                    ReviewId = table.Column<int>(type: "int", nullable: false),
+                    ReviewId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: true),
@@ -183,7 +190,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "CartItem",
                 columns: table => new
                 {
-                    CartItemId = table.Column<int>(type: "int", nullable: false),
+                    CartItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CartId = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
@@ -208,7 +216,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Order",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     CartId = table.Column<int>(type: "int", nullable: true),
                     OrderDate = table.Column<DateOnly>(type: "date", nullable: true),
@@ -264,7 +273,8 @@ namespace SmartE_Commerce_Data.Migrations
                 name: "Payment",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(type: "int", nullable: false),
+                    PaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     PaymentDate = table.Column<DateOnly>(type: "date", nullable: true),

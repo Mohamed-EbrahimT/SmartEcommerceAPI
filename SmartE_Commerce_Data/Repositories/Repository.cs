@@ -13,8 +13,8 @@ namespace SmartE_Commerce_Data.Repositories
             //internal abstract class Repository<T> : IRepository<T> where T : class المشكلة طلعت في الابستراكت بيعمل مشاكل مع الدبيندنسي انجكشن
 
     {
-        private readonly ECContext context;
-        private readonly DbSet<T> db;
+        protected readonly ECContext context;
+        protected readonly DbSet<T> db;
 
         public Repository(ECContext _context)
         {
@@ -29,5 +29,10 @@ namespace SmartE_Commerce_Data.Repositories
             await context.SaveChangesAsync();
         }
 
+        public void UpdateAsync(T entity)
+        {
+            db.Update(entity);
+            context.SaveChanges();
+        }
     }
 }

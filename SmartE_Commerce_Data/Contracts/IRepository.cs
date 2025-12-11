@@ -10,6 +10,5 @@ namespace SmartE_Commerce_Data.Contracts
     {
         Task InsertAsync(T entity);
 
-
     }
 }

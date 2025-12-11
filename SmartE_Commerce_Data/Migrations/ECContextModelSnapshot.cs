@@ -25,7 +25,10 @@ namespace SmartE_Commerce_Data.Migrations
             modelBuilder.Entity("FinalProj.Models.Address", b =>
                 {
                     b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
 
                     b.Property<string>("City")
                         .HasMaxLength(50)
@@ -51,13 +54,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Address", (string)null);
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Cart", b =>
                 {
                     b.Property<int>("CartId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
                     b.Property<int?>("ItemTotal")
                         .HasColumnType("int");
@@ -73,13 +79,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cart", (string)null);
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("FinalProj.Models.CartItem", b =>
                 {
                     b.Property<int>("CartItemId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
 
                     b.Property<int?>("CartId")
                         .HasColumnType("int");
@@ -100,13 +109,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItem", (string)null);
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("CategoryName")
                         .HasMaxLength(50)
@@ -119,13 +131,16 @@ namespace SmartE_Commerce_Data.Migrations
                     b.HasKey("CategoryId")
                         .HasName("PK__Category__19093A0BE6A49C01");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<int?>("CartId")
                         .HasColumnType("int");
@@ -154,7 +169,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("FinalProj.Models.OrderItem", b =>
@@ -176,13 +191,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem", (string)null);
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("FinalProj.Models.OrderStatus", b =>
                 {
                     b.Property<int>("OrderStatusId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderStatusId"));
 
                     b.Property<string>("OrderStatusName")
                         .HasMaxLength(50)
@@ -191,13 +209,16 @@ namespace SmartE_Commerce_Data.Migrations
                     b.HasKey("OrderStatusId")
                         .HasName("PK__OrderSta__BC674CA1A6DC858F");
 
-                    b.ToTable("OrderStatus", (string)null);
+                    b.ToTable("OrderStatus");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
@@ -219,13 +240,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Payment", (string)null);
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
@@ -246,13 +270,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(255)
@@ -274,7 +301,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Review", (string)null);
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("FinalProj.Models.User", b =>
@@ -324,13 +351,16 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("FinalProj.Models.UserRole", b =>
                 {
                     b.Property<int>("UserRoleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"));
 
                     b.Property<string>("UserRoleName")
                         .HasMaxLength(50)
@@ -340,7 +370,7 @@ namespace SmartE_Commerce_Data.Migrations
                     b.HasKey("UserRoleId")
                         .HasName("PK__UserRole__3D978A35800F8C94");
 
-                    b.ToTable("UserRole", (string)null);
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("SmartE_Commerce_Data.Models.Images", b =>
@@ -365,7 +395,7 @@ namespace SmartE_Commerce_Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("FinalProj.Models.Address", b =>

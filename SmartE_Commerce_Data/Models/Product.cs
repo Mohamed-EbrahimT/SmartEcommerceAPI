@@ -36,5 +36,5 @@ public partial class Product
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     [InverseProperty("Product")]
-    public virtual ICollection<Images> Images { get; set; } = new List<Images>();
+    public virtual ICollection<Images>? Images { get; set; } = new List<Images>();
 }

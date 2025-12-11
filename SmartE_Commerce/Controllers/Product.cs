@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartE_Commerce_Business.Contracts;
 using SmartE_Commerce_Business.DTOS;
+using SmartE_Commerce_Business.DTOS.Product;
 
 namespace SmartE_Commerce.Controllers
 {
@@ -16,13 +17,27 @@ namespace SmartE_Commerce.Controllers
             prdcService = prdctService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ProductInsertedDTO dto)
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
-            await prdcService.InsertProduct(dto);
-            return Ok();
+            return Ok(prdcService.GetAllAsync());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var product = await prdcService.GetByIdAsync(id);
+            if (product == null) return NotFound();
+
+            return Ok(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateProductDto dto)
+        {
+            await prdcService.AddAsync(dto);
+            return Ok("Product Created");
+        }
 
     }
 }

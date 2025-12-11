@@ -51,7 +51,7 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.AddressId).HasName("PK__Address__091C2AFB5998D563");
 
-            entity.Property(e => e.AddressId).ValueGeneratedNever();
+            entity.Property(e => e.AddressId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.User).WithMany(p => p.Addresses).HasConstraintName("FK__Address__UserId__4CA06362");
         });
@@ -60,7 +60,7 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD7B75FD95DAA");
 
-            entity.Property(e => e.CartId).ValueGeneratedNever();
+            entity.Property(e => e.CartId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.User).WithMany(p => p.Carts).HasConstraintName("FK__Cart__UserId__4D94879B");
         });
@@ -69,7 +69,7 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.CartItemId).HasName("PK__CartItem__488B0B0A30081646");
 
-            entity.Property(e => e.CartItemId).ValueGeneratedNever();
+            entity.Property(e => e.CartItemId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Cart).WithMany(p => p.CartItems).HasConstraintName("FK__CartItem__CartId__4E88ABD4");
 
@@ -80,14 +80,14 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.CategoryId).HasName("PK__Category__19093A0BE6A49C01");
 
-            entity.Property(e => e.CategoryId).ValueGeneratedNever();
+            entity.Property(e => e.CategoryId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BCF0F94E6D2");
 
-            entity.Property(e => e.OrderId).ValueGeneratedNever();
+            entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Cart).WithMany(p => p.Orders).HasConstraintName("FK__Order__CartId__5070F446");
 
@@ -113,14 +113,14 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__BC674CA1A6DC858F");
 
-            entity.Property(e => e.OrderStatusId).ValueGeneratedNever();
+            entity.Property(e => e.OrderStatusId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Payment>(entity =>
         {
             entity.HasKey(e => e.PaymentId).HasName("PK__Payment__9B556A3830A1E484");
 
-            entity.Property(e => e.PaymentId).ValueGeneratedNever();
+            entity.Property(e => e.PaymentId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Order).WithMany(p => p.Payments).HasConstraintName("FK__Payment__OrderId__5535A963");
 
@@ -131,7 +131,7 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6CD6B5F7D1C");
 
-            entity.Property(e => e.ProductId).ValueGeneratedNever();
+            entity.Property(e => e.ProductId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Category).WithMany(p => p.Products).HasConstraintName("FK__Products__Catego__571DF1D5");
         });
@@ -140,7 +140,7 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79CEE20898EC");
 
-            entity.Property(e => e.ReviewId).ValueGeneratedNever();
+            entity.Property(e => e.ReviewId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Product).WithMany(p => p.Reviews).HasConstraintName("FK__Review__ProductI__5812160E");
 
@@ -160,7 +160,7 @@ internal partial class ECContext : DbContext
         {
             entity.HasKey(e => e.UserRoleId).HasName("PK__UserRole__3D978A35800F8C94");
 
-            entity.Property(e => e.UserRoleId).ValueGeneratedNever();
+            entity.Property(e => e.UserRoleId).ValueGeneratedOnAdd();
         });
 
         OnModelCreatingPartial(modelBuilder);
