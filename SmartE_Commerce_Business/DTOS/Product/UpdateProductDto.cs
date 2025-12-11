@@ -8,11 +8,11 @@ namespace SmartE_Commerce_Business.DTOS.Product
 {
     public class UpdateProductDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string? Description { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         public int? Stock { get; set; } = 0;
         public int CategoryId { get; set; }
-        public List<string> Images { get; set; } 
+        public List<string>? Images { get; set; } 
     }
 }

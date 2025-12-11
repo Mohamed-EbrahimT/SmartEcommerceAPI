@@ -19,7 +19,7 @@ namespace SmartE_Commerce_Business.Services
         private readonly IRepository<Product> productRepon;
         private readonly IProductRepository productRepo;
 
-        public ProductService(IRepository<Product> productsRepository , IProductRepository productRepos)
+        public ProductService(IRepository<Product> productsRepository, IProductRepository productRepos)
         {
             productRepon = productsRepository;
             productRepo = productRepos;
@@ -27,7 +27,7 @@ namespace SmartE_Commerce_Business.Services
 
         public IEnumerable<ListProductsDto> GetAllAsync()
         {
-            var product=productRepo.GetAllAsync();
+            var product = productRepo.GetAllAsync();
             var result = product.Select(p => new ListProductsDto
             {
                 Id = p.ProductId,
@@ -40,10 +40,10 @@ namespace SmartE_Commerce_Business.Services
             });
             return result;
         }
-        
+
         public async Task<ProductDetailsDto?> GetByIdAsync(int id)
         {
-            var p = await productRepo.GetByIdAsync(id);
+            var p = await productRepo.GetProductByIdAsync(id);
             if (p == null) return null;
 
             return new ProductDetailsDto
@@ -51,21 +51,21 @@ namespace SmartE_Commerce_Business.Services
                 Id = p.ProductId,
                 Name = p.ProductName,
                 Price = p.Price,
-                CategoryId=p.CategoryId,
-                ImagesURL=p.Images.Select(i => i.ImageURL).ToList(),
+                CategoryId = p.CategoryId,
+                ImagesURL = p.Images.Select(i => i.ImageURL).ToList(),
             };
         }
 
         public async Task AddAsync(CreateProductDto dto)
         {
-            if (dto == null || string.IsNullOrEmpty(dto.Name) || dto.CategoryId<1) 
+            if (dto == null || string.IsNullOrEmpty(dto.Name) || dto.CategoryId < 1)
                 return;
             var product = new Product
             {
-                ProductName=dto.Name,
-                Price=dto.Price,
-                CategoryId=dto.CategoryId,
-                Stock=dto.Stock,
+                ProductName = dto.Name,
+                Price = dto.Price,
+                CategoryId = dto.CategoryId,
+                Stock = dto.Stock,
             };
 
             if (dto.Images != null)
@@ -81,14 +81,46 @@ namespace SmartE_Commerce_Business.Services
             await productRepo.InsertAsync(product);
         }
 
+        //Validated one
         public async Task UpdateAsync(UpdateProductDto dto)
         {
-            throw new NotImplementedException();
+            var product = await productRepo.GetProductByIdAsync(dto.Id);
+
+            if (product == null)
+                return;
+
+            // Update only provided values
+            product.ProductName = dto.Name ?? dto.Name;
+
+            if (dto.Price.HasValue)
+                product.Price = dto.Price.Value;
+
+            if (dto.Stock.HasValue)
+                product.Stock = dto.Stock.Value;
+
+            product.CategoryId = dto.CategoryId;
+
+            // If images are provided, update them (simple example)
+            if (dto.Images != null && dto.Images.Any())
+            {
+                product.Images.Clear();
+
+                foreach (var img in dto.Images)
+                {
+                    product.Images.Add(new Images
+                    {
+                        ImageURL = img,
+
+                    });
+                }
+            }
+
+            await productRepo.UpdateAsync(product);
         }
 
         public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await productRepo.DeleteProductAsync(id);
         }
 
 

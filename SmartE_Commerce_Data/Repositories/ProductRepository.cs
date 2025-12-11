@@ -24,7 +24,7 @@ namespace SmartE_Commerce_Data.Repositories
                 .AsEnumerable();
         }
 
-        public async Task<Product?> GetByIdAsync(int id)
+        public async Task<Product?> GetProductByIdAsync(int id)
         {
             return await context.Products
                 .Include(p => p.Category)
@@ -32,18 +32,19 @@ namespace SmartE_Commerce_Data.Repositories
                 .FirstOrDefaultAsync(p => p.ProductId==id);    
         }
 
-        public async Task AddAsync(Product product)
-        {
-            await context.Products.AddAsync(product);
-            await context.SaveChangesAsync();
-        }
-        async Task IProductRepository.UpdateAsync(Product product)
-        {
-            context.Products.Update(product);
-            await context.SaveChangesAsync();
-        }
+        // انت كدا كدا هتجيبهم من الريبو عن طريق الانهرتنس
+        //public async Task AddAsync(Product product)
+        //{
+        //    await context.Products.AddAsync(product);
+        //    await context.SaveChangesAsync();
+        //}
+        //async Task IProductRepository.UpdateAsync(Product product)
+        //{
+        //    context.Products.Update(product);
+        //    await context.SaveChangesAsync();
+        //}
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteProductAsync(int id)
         {
             var p = await GetByIdAsync(id);
             if (p != null)
@@ -56,6 +57,7 @@ namespace SmartE_Commerce_Data.Repositories
 
 
         }
+
 
 
 

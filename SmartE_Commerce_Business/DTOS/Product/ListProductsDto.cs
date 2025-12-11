@@ -19,9 +19,9 @@ namespace SmartE_Commerce_Business.DTOS.Product
             get=>_ImageURL;
             set
             {
-                if (string.IsNullOrEmpty(_ImageURL))
+                if (string.IsNullOrEmpty(value))
                     throw new ArgumentException("Image Not Found");
-                ImageURL = value;
+                _ImageURL = value;
             } 
         }
     }

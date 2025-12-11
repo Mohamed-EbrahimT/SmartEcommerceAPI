@@ -32,11 +32,24 @@ namespace SmartE_Commerce.Controllers
             return Ok(product);
         }
 
-        [HttpPost]
+        [HttpPost(Name ="Add Product")]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {
             await prdcService.AddAsync(dto);
             return Ok("Product Created");
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateProductDto dto)
+        {
+            await prdcService.UpdateAsync(dto);
+            return Ok("Product Updated");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await prdcService.DeleteAsync(id);
+            return Ok("Deleted");
         }
 
     }

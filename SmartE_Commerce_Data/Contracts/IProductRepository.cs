@@ -10,11 +10,11 @@ namespace SmartE_Commerce_Data.Contracts
     public interface IProductRepository:IRepository<Product>
     {
         IEnumerable<Product> GetAllAsync();
-        Task<Product?> GetByIdAsync(int id);
+        Task<Product?> GetProductByIdAsync(int id);
 
-        Task AddAsync(Product product);
-        Task UpdateAsync(Product product);
-        Task DeleteAsync(int id);
+        //Task AddAsync(Product product);
+        //Task UpdateAsync(Product product);
+        Task DeleteProductAsync(int id);
 
     }
 }

@@ -10,7 +10,7 @@ using SmartE_Commerce_Data.Contracts;
 namespace SmartE_Commerce_Data.Repositories
 {
     internal class Repository<T> : IRepository<T> where T : class
-            //internal abstract class Repository<T> : IRepository<T> where T : class المشكلة طلعت في الابستراكت بيعمل مشاكل مع الدبيندنسي انجكشن
+        //internal abstract class Repository<T> : IRepository<T> where T : class المشكلة طلعت في الابستراكت بيعمل مشاكل مع الدبيندنسي انجكشن
 
     {
         protected readonly ECContext context;
@@ -19,9 +19,8 @@ namespace SmartE_Commerce_Data.Repositories
         public Repository(ECContext _context)
         {
             context = _context;
-            db=context.Set<T>();
+            db = context.Set<T>();
         }
-
 
         public async Task InsertAsync(T entity)
         {
@@ -29,10 +28,27 @@ namespace SmartE_Commerce_Data.Repositories
             await context.SaveChangesAsync();
         }
 
-        public void UpdateAsync(T entity)
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await db.FindAsync(id);
+        }
+
+        public async Task UpdateAsync(T entity)
         {
             db.Update(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var entity = await GetByIdAsync(id);
+            if (entity != null)
+            {
+                db.Remove(entity);
+                await context.SaveChangesAsync();
+            }
+        }
+
+
     }
 }
