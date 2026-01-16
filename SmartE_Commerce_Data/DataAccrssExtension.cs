@@ -14,12 +14,13 @@ namespace SmartE_Commerce_Data
 {
     public static class DataAccrssExtension
     {
-        public static IServiceCollection AddSercice (this IServiceCollection services, IConfigurationManager configuration)
+        public static IServiceCollection AddService (this IServiceCollection services, IConfigurationManager configuration)
         {
             var connectionString = configuration.GetConnectionString("con");
             services.AddDbContext<ECContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped(typeof(IRepository<> ), typeof(Repository<>));
             services.AddScoped(typeof(IProductRepository ), typeof(ProductRepository));
+            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
             return services;
         }
 

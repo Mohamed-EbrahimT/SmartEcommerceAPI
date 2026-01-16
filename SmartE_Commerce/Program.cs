@@ -15,7 +15,7 @@ namespace SmartE_Commerce
 
             var con = builder.Configuration.GetConnectionString("con");
                 
-            builder.Services.AddSercice(builder.Configuration).AddBusinessLogicServices();
+            builder.Services.AddService(builder.Configuration).AddBusinessLogicServices();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
