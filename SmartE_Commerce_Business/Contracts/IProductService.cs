@@ -13,7 +13,7 @@ namespace SmartE_Commerce_Business.Contracts
 
         IEnumerable<ListProductsDto> GetAllAsync();
         Task<ProductDetailsDto?> GetByIdAsync(int id);
-        Task AddAsync(CreateProductDto dto);
+        Task <CreateProductDto> AddAsync(CreateProductDto dto);
         Task UpdateAsync(UpdateProductDto dto);
         Task DeleteAsync(int id);
 

@@ -18,4 +18,8 @@
     <ProjectReference Include="..\SmartE_Commerce_Business\SmartE_Commerce_Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

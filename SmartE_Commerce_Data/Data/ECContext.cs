@@ -18,6 +18,7 @@ internal partial class ECContext : DbContext
     {
     }
 
+    // DataBase Tables designed by Entity Framework Core in C#
     public virtual DbSet<Address> Addresses { get; set; }
 
     public virtual DbSet<Cart> Carts { get; set; }

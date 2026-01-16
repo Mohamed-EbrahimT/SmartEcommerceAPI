@@ -32,6 +32,7 @@ namespace SmartE_Commerce_Business.Services
             {
                 Id = p.ProductId,
                 Name = p.ProductName,
+                Price=p.Price,
                 CategoryId = p.Category.CategoryId,
                 ImageURL = p.Images
                 .OrderBy(i => i.ImageId)
@@ -56,10 +57,10 @@ namespace SmartE_Commerce_Business.Services
             };
         }
 
-        public async Task AddAsync(CreateProductDto dto)
+        public async Task<CreateProductDto> AddAsync(CreateProductDto dto)
         {
             if (dto == null || string.IsNullOrEmpty(dto.Name) || dto.CategoryId < 1)
-                return;
+                return null;
             var product = new Product
             {
                 ProductName = dto.Name,
@@ -79,6 +80,7 @@ namespace SmartE_Commerce_Business.Services
                 }
             }
             await productRepo.InsertAsync(product);
+            return dto;
         }
 
         //Validated one

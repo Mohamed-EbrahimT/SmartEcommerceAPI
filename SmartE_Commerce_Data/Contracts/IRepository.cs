@@ -8,8 +8,9 @@ namespace SmartE_Commerce_Data.Contracts
 {
     public interface IRepository<T> where T : class
     {
+        IEnumerable<T> GetAll();
         Task<T> GetByIdAsync(int id);
-        Task InsertAsync(T entity);
+        Task<T> InsertAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
     }

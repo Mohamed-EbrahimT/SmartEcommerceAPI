@@ -22,16 +22,23 @@ namespace SmartE_Commerce_Data.Repositories
             db = context.Set<T>();
         }
 
-        public async Task InsertAsync(T entity)
+        public IEnumerable<T> GetAll()
         {
-            await db.AddAsync(entity);
-            await context.SaveChangesAsync();
+            return db.AsEnumerable();
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
             return await db.FindAsync(id);
         }
+
+        public async Task<T> InsertAsync(T entity)
+        {
+            await db.AddAsync(entity);
+            await context.SaveChangesAsync();
+            return entity;
+        }
+
 
         public async Task UpdateAsync(T entity)
         {

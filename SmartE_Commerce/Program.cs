@@ -20,7 +20,17 @@ namespace SmartE_Commerce
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    policy =>
+                    {
+                        policy
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
 
             var app = builder.Build();
 
@@ -34,8 +44,8 @@ namespace SmartE_Commerce
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-
+            app.UseStaticFiles();
+            app.UseCors("AllowAll");
             app.MapControllers();
 
             app.Run();

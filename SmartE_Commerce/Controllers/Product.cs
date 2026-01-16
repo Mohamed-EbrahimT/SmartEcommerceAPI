@@ -17,13 +17,14 @@ namespace SmartE_Commerce.Controllers
             prdcService = prdctService;
         }
 
-        [HttpGet]
+        //Admin Endpoints From API That brings and sending data 
+        [HttpGet("GetProducts")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(prdcService.GetAllAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetProduct/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var product = await prdcService.GetByIdAsync(id);
@@ -32,20 +33,20 @@ namespace SmartE_Commerce.Controllers
             return Ok(product);
         }
 
-        [HttpPost(Name ="Add Product")]
+        [HttpPost("AddProduct")]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {
             await prdcService.AddAsync(dto);
             return Ok("Product Created");
         }
-        [HttpPut]
+        [HttpPut("UpdateProduct")]
         public async Task<IActionResult> Update(UpdateProductDto dto)
         {
             await prdcService.UpdateAsync(dto);
             return Ok("Product Updated");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProduct/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await prdcService.DeleteAsync(id);
