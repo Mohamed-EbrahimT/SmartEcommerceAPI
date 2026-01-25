@@ -16,6 +16,7 @@ namespace SmartE_Commerce_Business
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICartService, CartService>();
 
             return services;
         }

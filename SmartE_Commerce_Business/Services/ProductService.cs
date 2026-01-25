@@ -51,6 +51,7 @@ namespace SmartE_Commerce_Business.Services
             {
                 Id = p.ProductId,
                 Name = p.ProductName,
+                Description = p.Description,
                 Price = p.Price,
                 CategoryId = p.CategoryId,
                 ImagesURL = p.Images.Select(i => i.ImageURL).ToList(),
@@ -64,6 +65,7 @@ namespace SmartE_Commerce_Business.Services
             var product = new Product
             {
                 ProductName = dto.Name,
+                Description = dto.Description,
                 Price = dto.Price,
                 CategoryId = dto.CategoryId,
                 Stock = dto.Stock,
@@ -93,6 +95,9 @@ namespace SmartE_Commerce_Business.Services
 
             // Update only provided values
             product.ProductName = dto.Name ?? dto.Name;
+
+            if (dto.Description != null)
+                product.Description = dto.Description;
 
             if (dto.Price.HasValue)
                 product.Price = dto.Price.Value;

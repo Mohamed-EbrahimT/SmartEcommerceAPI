@@ -20,6 +20,9 @@ public partial class Product
 
     public int? Stock { get; set; }
 
+    [StringLength(1000)]
+    public string? Description { get; set; }
+
     public int? CategoryId { get; set; }
 
     [InverseProperty("Product")]

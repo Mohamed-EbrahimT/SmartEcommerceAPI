@@ -21,6 +21,7 @@ namespace SmartE_Commerce_Data
             services.AddScoped(typeof(IRepository<> ), typeof(Repository<>));
             services.AddScoped(typeof(IProductRepository ), typeof(ProductRepository));
             services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
+            services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
             return services;
         }
 
