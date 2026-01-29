@@ -7,6 +7,7 @@ namespace SmartE_Commerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)] // Hidden from Swagger documentation
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;

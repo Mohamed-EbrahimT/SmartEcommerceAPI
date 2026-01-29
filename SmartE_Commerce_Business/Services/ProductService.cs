@@ -7,6 +7,7 @@ using System.Xml;
 using FinalProj.Models;
 using SmartE_Commerce_Business.Contracts;
 using SmartE_Commerce_Business.DTOS;
+using SmartE_Commerce_Business.DTOS.Common;
 using SmartE_Commerce_Business.DTOS.Product;
 using SmartE_Commerce_Data.Contracts;
 using SmartE_Commerce_Data.Models;
@@ -40,6 +41,31 @@ namespace SmartE_Commerce_Business.Services
                 .FirstOrDefault()
             });
             return result;
+        }
+
+        public async Task<PagedResult<ListProductsDto>> GetPagedAsync(int pageNumber, int pageSize)
+        {
+            var (products, totalCount) = await productRepo.GetPagedAsync(pageNumber, pageSize);
+            
+            var items = products.Select(p => new ListProductsDto
+            {
+                Id = p.ProductId,
+                Name = p.ProductName,
+                Price = p.Price,
+                CategoryId = p.Category?.CategoryId ?? 0,
+                ImageURL = p.Images
+                    .OrderBy(i => i.ImageId)
+                    .Select(i => i.ImageURL)
+                    .FirstOrDefault()
+            });
+
+            return new PagedResult<ListProductsDto>
+            {
+                Items = items,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
         }
 
         public async Task<ProductDetailsDto?> GetByIdAsync(int id)

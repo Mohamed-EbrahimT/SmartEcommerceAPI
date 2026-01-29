@@ -24,6 +24,21 @@ namespace SmartE_Commerce_Data.Repositories
                 .AsEnumerable();
         }
 
+        public async Task<(IEnumerable<Product> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize)
+        {
+            var totalCount = await context.Products.CountAsync();
+            
+            var items = await context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .OrderBy(p => p.ProductId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+        }
+
         public async Task<Product?> GetProductByIdAsync(int id)
         {
             return await context.Products

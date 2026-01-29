@@ -10,6 +10,7 @@ namespace SmartE_Commerce_Data.Contracts
     public interface IProductRepository:IRepository<Product>
     {
         IEnumerable<Product> GetAllAsync();
+        Task<(IEnumerable<Product> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize);
         Task<Product?> GetProductByIdAsync(int id);
 
         //Task AddAsync(Product product);

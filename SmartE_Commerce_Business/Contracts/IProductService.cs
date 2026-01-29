@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SmartE_Commerce_Business.DTOS;
+using SmartE_Commerce_Business.DTOS.Common;
 using SmartE_Commerce_Business.DTOS.Product;
 
 namespace SmartE_Commerce_Business.Contracts
@@ -12,6 +13,7 @@ namespace SmartE_Commerce_Business.Contracts
     {
 
         IEnumerable<ListProductsDto> GetAllAsync();
+        Task<PagedResult<ListProductsDto>> GetPagedAsync(int pageNumber, int pageSize);
         Task<ProductDetailsDto?> GetByIdAsync(int id);
         Task <CreateProductDto> AddAsync(CreateProductDto dto);
         Task UpdateAsync(UpdateProductDto dto);
