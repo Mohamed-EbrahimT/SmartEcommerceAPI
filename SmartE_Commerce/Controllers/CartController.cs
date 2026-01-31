@@ -1,19 +1,32 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartE_Commerce_Business.Contracts;
 using SmartE_Commerce_Business.DTOS.Cart;
+using System.Security.Claims;
 
 namespace SmartE_Commerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiExplorerSettings(IgnoreApi = true)] // Hidden from Swagger documentation
+    [Authorize] // Requires JWT authentication for all endpoints
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
 
-        // TODO: Replace with real user ID from auth later
-        private int GetCurrentUserId() => 1;
+        // Extract user ID from JWT claims
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                           ?? User.FindFirst("userId")?.Value;
+            
+            if (int.TryParse(userIdClaim, out int userId))
+            {
+                return userId;
+            }
+            
+            throw new UnauthorizedAccessException("User ID not found in token");
+        }
 
         public CartController(ICartService cartService)
         {

@@ -34,7 +34,7 @@ namespace SmartE_Commerce_Business.Services
                 Id = p.ProductId,
                 Name = p.ProductName,
                 Price=p.Price,
-                CategoryId = p.Category.CategoryId,
+                CategoryId = p.Category?.CategoryId ?? 0,
                 ImageURL = p.Images
                 .OrderBy(i => i.ImageId)
                 .Select(i => i.ImageURL)

@@ -30,7 +30,7 @@ public partial class User
 
     public int UserRoleId { get; set; }
 
-    [StringLength(20)]
+    [StringLength(100)]
     public string Password { get; set; } = null!;
 
     [InverseProperty("User")]

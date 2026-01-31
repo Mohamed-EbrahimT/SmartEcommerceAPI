@@ -11,7 +11,7 @@ namespace SmartE_Commerce_Business.DTOS.Product
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal? Price { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         private string _ImageURL;
         public string ImageURL 
@@ -20,7 +20,7 @@ namespace SmartE_Commerce_Business.DTOS.Product
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Image Not Found");
+                    Console.WriteLine("Image Not Found"); 
                 _ImageURL = value;
             } 
         }
