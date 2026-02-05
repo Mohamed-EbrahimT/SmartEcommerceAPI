@@ -48,8 +48,12 @@ namespace SmartE_Commerce.Controllers
         [HttpPost("AddProduct")]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {
-            await prdcService.AddAsync(dto);
-            return Ok("Product Created");
+            var result = await prdcService.AddAsync(dto);
+            if (result == null)
+                return BadRequest("Failed to create product. Check required fields.");
+            
+            // Returns 201 Created with location header and product data (including Cloudinary URLs)
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
         [HttpPut("UpdateProduct")]
         public async Task<IActionResult> Update(UpdateProductDto dto)

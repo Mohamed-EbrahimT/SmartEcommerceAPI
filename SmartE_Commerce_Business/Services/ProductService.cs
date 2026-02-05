@@ -19,11 +19,20 @@ namespace SmartE_Commerce_Business.Services
     {
         private readonly IRepository<Product> productRepon;
         private readonly IProductRepository productRepo;
+        private readonly ICloudinaryService _cloudinaryService;
 
-        public ProductService(IRepository<Product> productsRepository, IProductRepository productRepos)
+        // OLD CONSTRUCTOR (commented out - before Cloudinary integration)
+        // public ProductService(IRepository<Product> productsRepository, IProductRepository productRepos)
+        // {
+        //     productRepon = productsRepository;
+        //     productRepo = productRepos;
+        // }
+
+        public ProductService(IRepository<Product> productsRepository, IProductRepository productRepos, ICloudinaryService cloudinaryService)
         {
             productRepon = productsRepository;
             productRepo = productRepos;
+            _cloudinaryService = cloudinaryService;
         }
 
         public IEnumerable<ListProductsDto> GetAllAsync()
@@ -84,7 +93,8 @@ namespace SmartE_Commerce_Business.Services
             };
         }
 
-        public async Task<CreateProductDto> AddAsync(CreateProductDto dto)
+        // OLD: public async Task<CreateProductDto> AddAsync(CreateProductDto dto)
+        public async Task<ProductDetailsDto?> AddAsync(CreateProductDto dto)
         {
             if (dto == null || string.IsNullOrEmpty(dto.Name) || dto.CategoryId < 1)
                 return null;
@@ -97,18 +107,45 @@ namespace SmartE_Commerce_Business.Services
                 Stock = dto.Stock,
             };
 
-            if (dto.Images != null)
+            // OLD CODE (commented out - before Cloudinary integration)
+            // if (dto.Images != null)
+            // {
+            //     foreach (var url in dto.Images)
+            //     {
+            //         product.Images.Add(new Images
+            //         {
+            //             ImageURL = url,
+            //         });
+            //     }
+            // }
+
+            // Upload images to Cloudinary and store the Cloudinary URLs
+            var uploadedImageUrls = new List<string>();
+            if (dto.Images != null && dto.Images.Any())
             {
-                foreach (var url in dto.Images)
+                uploadedImageUrls = await _cloudinaryService.UploadImagesAsync(dto.Images);
+                foreach (var cloudinaryUrl in uploadedImageUrls)
                 {
                     product.Images.Add(new Images
                     {
-                        ImageURL = url,
+                        ImageURL = cloudinaryUrl,
                     });
                 }
             }
+
             await productRepo.InsertAsync(product);
-            return dto;
+            
+            // Return the created product using existing ProductDetailsDto
+            return new ProductDetailsDto
+            {
+                Id = product.ProductId,
+                Name = product.ProductName,
+                Description = product.Description,
+                Price = product.Price,
+                Stock = product.Stock,
+                CategoryId = product.CategoryId,
+                ImagesURL = uploadedImageUrls
+            };
         }
 
         //Validated one
@@ -133,17 +170,32 @@ namespace SmartE_Commerce_Business.Services
 
             product.CategoryId = dto.CategoryId;
 
+            // OLD CODE (commented out - before Cloudinary integration)
             // If images are provided, update them (simple example)
+            // if (dto.Images != null && dto.Images.Any())
+            // {
+            //     product.Images.Clear();
+            //
+            //     foreach (var img in dto.Images)
+            //     {
+            //         product.Images.Add(new Images
+            //         {
+            //             ImageURL = img,
+            //         });
+            //     }
+            // }
+
+            // NEW CODE: Upload new images to Cloudinary and update with Cloudinary URLs
             if (dto.Images != null && dto.Images.Any())
             {
                 product.Images.Clear();
 
-                foreach (var img in dto.Images)
+                var cloudinaryUrls = await _cloudinaryService.UploadImagesAsync(dto.Images);
+                foreach (var cloudinaryUrl in cloudinaryUrls)
                 {
                     product.Images.Add(new Images
                     {
-                        ImageURL = img,
-
+                        ImageURL = cloudinaryUrl,
                     });
                 }
             }
