@@ -19,7 +19,7 @@ namespace SmartE_Commerce
             // Add services to the container.
             var con = builder.Configuration.GetConnectionString("con");
                 
-            builder.Services.AddService(builder.Configuration).AddBusinessLogicServices();
+            builder.Services.AddService(builder.Configuration).AddBusinessLogicServices(builder.Configuration);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

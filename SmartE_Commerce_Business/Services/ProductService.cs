@@ -20,6 +20,7 @@ namespace SmartE_Commerce_Business.Services
         private readonly IRepository<Product> productRepon;
         private readonly IProductRepository productRepo;
         private readonly ICloudinaryService _cloudinaryService;
+        private readonly IEmbeddingService _embeddingService;
 
         // OLD CONSTRUCTOR (commented out - before Cloudinary integration)
         // public ProductService(IRepository<Product> productsRepository, IProductRepository productRepos)
@@ -28,11 +29,16 @@ namespace SmartE_Commerce_Business.Services
         //     productRepo = productRepos;
         // }
 
-        public ProductService(IRepository<Product> productsRepository, IProductRepository productRepos, ICloudinaryService cloudinaryService)
+        public ProductService(
+            IRepository<Product> productsRepository, 
+            IProductRepository productRepos, 
+            ICloudinaryService cloudinaryService,
+            IEmbeddingService embeddingService)
         {
             productRepon = productsRepository;
             productRepo = productRepos;
             _cloudinaryService = cloudinaryService;
+            _embeddingService = embeddingService;
         }
 
         public IEnumerable<ListProductsDto> GetAllAsync()
@@ -135,6 +141,12 @@ namespace SmartE_Commerce_Business.Services
 
             await productRepo.InsertAsync(product);
             
+            // Send to FastAPI for CLIP embeddings (fire and forget - don't block on failure)
+            if (uploadedImageUrls.Any())
+            {
+                _ = _embeddingService.StoreProductEmbeddingsAsync(product.ProductId, uploadedImageUrls);
+            }
+            
             // Return the created product using existing ProductDetailsDto
             return new ProductDetailsDto
             {
@@ -185,22 +197,53 @@ namespace SmartE_Commerce_Business.Services
             //     }
             // }
 
-            // NEW CODE: Upload new images to Cloudinary and update with Cloudinary URLs
+            // Smart image update: only upload NEW local images, keep existing Cloudinary URLs
+            var newlyUploadedUrls = new List<string>();
+            var allImageUrls = new List<string>();
+            
             if (dto.Images != null && dto.Images.Any())
             {
+                // Remove existing images
                 product.Images.Clear();
 
-                var cloudinaryUrls = await _cloudinaryService.UploadImagesAsync(dto.Images);
-                foreach (var cloudinaryUrl in cloudinaryUrls)
+                foreach (var imagePath in dto.Images)
                 {
-                    product.Images.Add(new Images
+                    // If already a Cloudinary URL, don't re-upload
+                    if (imagePath.StartsWith("https://res.cloudinary.com") || 
+                        imagePath.StartsWith("http://res.cloudinary.com"))
                     {
-                        ImageURL = cloudinaryUrl,
-                    });
+                        allImageUrls.Add(imagePath);
+                        product.Images.Add(new Images 
+                        { 
+                            ImageURL = imagePath,
+                            ProductId = product.ProductId  // Must set ProductId explicitly!
+                        });
+                    }
+                    else
+                    {
+                        // It's a local file path, upload to Cloudinary
+                        var cloudinaryUrl = await _cloudinaryService.UploadImageAsync(imagePath);
+                        if (!string.IsNullOrEmpty(cloudinaryUrl))
+                        {
+                            allImageUrls.Add(cloudinaryUrl);
+                            newlyUploadedUrls.Add(cloudinaryUrl);
+                            product.Images.Add(new Images 
+                            { 
+                                ImageURL = cloudinaryUrl,
+                                ProductId = product.ProductId  // Must set ProductId explicitly!
+                            });
+                        }
+                    }
                 }
             }
 
             await productRepo.UpdateAsync(product);
+
+            // Only send NEW images to FastAPI for embeddings (not existing ones already in Qdrant)
+            if (newlyUploadedUrls.Any())
+            {
+                _ = _embeddingService.StoreProductEmbeddingsAsync(product.ProductId, newlyUploadedUrls);
+            }
         }
 
         public async Task DeleteAsync(int id)
