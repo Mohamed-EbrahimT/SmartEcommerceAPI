@@ -99,6 +99,35 @@ namespace SmartE_Commerce_Business.Services
             };
         }
 
+        public async Task<IEnumerable<ListProductsDto>> GetProductsByIdsAsync(List<int> ids)
+        {
+            if (ids == null || !ids.Any())
+                return new List<ListProductsDto>();
+
+            var products = await productRepo.GetProductsByIdsAsync(ids);
+
+            var dtos = products.Select(p => new ListProductsDto
+            {
+                Id = p.ProductId,
+                Name = p.ProductName,
+                Price = p.Price,
+                CategoryId = p.Category?.CategoryId ?? 0,
+                ImageURL = p.Images
+                    .OrderBy(i => i.ImageId)
+                    .Select(i => i.ImageURL)
+                    .FirstOrDefault()
+            }).ToList();
+
+            // Preserve the order of input IDs (similarity ranking from Qdrant)
+            var sorted = new List<ListProductsDto>();
+            foreach (var id in ids)
+            {
+                var dto = dtos.FirstOrDefault(d => d.Id == id);
+                if (dto != null) sorted.Add(dto);
+            }
+            return sorted;
+        }
+
         // OLD: public async Task<CreateProductDto> AddAsync(CreateProductDto dto)
         public async Task<ProductDetailsDto?> AddAsync(CreateProductDto dto)
         {

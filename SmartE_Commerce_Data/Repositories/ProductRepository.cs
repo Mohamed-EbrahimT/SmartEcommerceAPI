@@ -47,6 +47,15 @@ namespace SmartE_Commerce_Data.Repositories
                 .FirstOrDefaultAsync(p => p.ProductId==id);    
         }
 
+        public async Task<IEnumerable<Product>> GetProductsByIdsAsync(List<int> ids)
+        {
+            return await context.Products
+                .Where(p => ids.Contains(p.ProductId))
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .ToListAsync();
+        }
+
         // انت كدا كدا هتجيبهم من الريبو عن طريق الانهرتنس
         //public async Task AddAsync(Product product)
         //{

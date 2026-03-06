@@ -45,6 +45,16 @@ namespace SmartE_Commerce.Controllers
             return Ok(product);
         }
 
+        [HttpPost("GetProductsByIds")]
+        public async Task<IActionResult> GetProductsByIds([FromBody] List<int> ids)
+        {
+            if (ids == null || !ids.Any())
+                return Ok(new List<ListProductsDto>());
+
+            var products = await prdcService.GetProductsByIdsAsync(ids);
+            return Ok(products);
+        }
+
         [HttpPost("AddProduct")]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {

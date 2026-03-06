@@ -43,8 +43,9 @@ internal partial class ECContext : DbContext
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=.;Database=SmartECommerce;User Id=Mohamed;Password=1234;encrypt=false;");
+    // # Fix: Erased hardcoded con string since there is DI in DataAccrssExtension.cs
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //=> optionsBuilder.UseSqlServer("Server=.;Database=SmartECommerce;User Id=Mohamed;Password=1234;encrypt=false;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

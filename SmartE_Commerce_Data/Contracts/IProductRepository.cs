@@ -12,6 +12,7 @@ namespace SmartE_Commerce_Data.Contracts
         IEnumerable<Product> GetAllAsync();
         Task<(IEnumerable<Product> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize);
         Task<Product?> GetProductByIdAsync(int id);
+        Task<IEnumerable<Product>> GetProductsByIdsAsync(List<int> ids);
 
         //Task AddAsync(Product product);
         //Task UpdateAsync(Product product);
